@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Task 5</title>
+    <style>
+        .error {
+            color: red;
+        }
+
+        .error-border {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    
+    <form id="contactForm">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <span id="nameError" class="error"></span>
+        </div>
+        <br>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <span id="emailError" class="error"></span>
+        </div>
+        <br>
+
+        <div>
+            <label for="website">Website:</label>
+            <input type="url" id="website" name="website">
+            <span id="websiteError" class="error"></span>
+        </div>
+        <br>
+
+        <div>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message"></textarea>
+            <span id="messageError" class="error"></span>
+        </div>
+        <br>
+
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const website = document.getElementById("website").value;
+            const message = document.getElementById("message").value;
+            const errorMessages = [];
+
+            function markAsError(fieldId) {
+                document.getElementById(fieldId).classList.add("error-border");
+            }
+
+            function clearError(fieldId) {
+                document.getElementById(fieldId).classList.remove("error-border");
+            }
+
+            if (name === "") {
+                errorMessages.push("Name is required.");
+                markAsError("name");
+                document.getElementById("nameError").textContent = "This field is required.";
+            } else {
+                clearError("name");
+                document.getElementById("nameError").textContent = "";
+            }
+
+            if (email === "") {
+                errorMessages.push("Email is required.");
+                markAsError("email");
+                document.getElementById("emailError").textContent = "A valid email address is required.";
+            } else {
+                clearError("email");
+                document.getElementById("emailError").textContent = "";
+            }
+
+            if (website === "") {
+                errorMessages.push("Website is required.");
+                markAsError("website");
+                document.getElementById("websiteError").textContent = "A valid URL is required.";
+            } else {
+                clearError("website");
+                document.getElementById("websiteError").textContent = "";
+            }
+
+            if (message === "") {
+                errorMessages.push("Message is required.");
+                markAsError("message");
+                document.getElementById("messageError").textContent = "This field is required.";
+            } else {
+                clearError("message");
+                document.getElementById("messageError").textContent = "";
+            }
+
+            if (errorMessages.length > 0) {
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    </script>
+</body>
+</html>

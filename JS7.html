@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Task 7</title>
+    <style>
+        #train {
+            position: absolute;
+            top: 100px; /* Initial top position */
+            left: -100px; /* Initial left position */
+            transition: left 2s linear; /* Smooth animation effect */
+        }
+        .flexbox{
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="flexbox">
+       <div><h3 style="color: navy">Click on the following buttons to handle animation</h3></div>
+       <div>
+        <button id="startButton">Start</button>
+        <button id="stopButton">Stop</button>
+        <div id="trainContainer">
+            <img id="train" src="./train.png" alt="Train" width="300">
+        </div>
+       </div>
+    </div>
+
+    <script>
+        const train = document.getElementById('train');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        let animationId;
+
+        // Function to start the train animation
+        function startTrainAnimation() {
+            train.style.left = '100%'; // Move the train to the right end of the screen
+            animationId = requestAnimationFrame(moveTrain);
+        }
+
+        // Function to move the train
+        function moveTrain() {
+            const currentPosition = parseInt(train.style.left);
+            if (currentPosition <= -100) {
+                // Reset the train's position when it goes off the screen
+                train.style.left = '100%';
+            } else {
+                train.style.left = (currentPosition - 1) + 'px'; // Move the train to the left
+                animationId = requestAnimationFrame(moveTrain);
+            }
+        }
+
+        // Function to stop the train animation
+        function stopTrainAnimation() {
+            cancelAnimationFrame(animationId);
+        }
+
+        // Event listeners for the buttons
+        startButton.addEventListener('click', startTrainAnimation);
+        stopButton.addEventListener('click', stopTrainAnimation);
+    </script>
+</body>
+</html>
